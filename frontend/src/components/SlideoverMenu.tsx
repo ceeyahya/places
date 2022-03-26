@@ -1,5 +1,8 @@
-import { Fragment } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
+import sanityClient from 'lib/sanityClient';
+import {PlaceCard} from 'components/PlaceCard'
+import {Place} from 'types/Place'
 
 export function SlideoverMenu({
 	open,
@@ -8,6 +11,16 @@ export function SlideoverMenu({
 	open: boolean;
 	setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+  const [places, setPlaces] = useState<Place[]>([])
+
+  useEffect(() => {
+    sanityClient.fetch(
+      `*[_type == "place"]{ _id, name, description, visited, country, type, country}`
+    )
+    .then((data) => setPlaces(data))
+    .catch(console.error)
+  }, [])
+
 	return (
 		<Transition.Root show={open} as={Fragment}>
 			<Dialog
@@ -36,7 +49,7 @@ export function SlideoverMenu({
 							leaveFrom='translate-x-0'
 							leaveTo='translate-x-full'>
 							<div className='pointer-events-auto w-screen max-w-md'>
-								<div className='flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl'>
+								<div className='flex h-full flex-col overflow-y-scroll bg-gray-50 py-6 shadow-xl'>
 									<div className='px-4 sm:px-6'>
 										<div className='flex items-start justify-between'>
 											<Dialog.Title className='text-lg font-semibold text-gray-900'>
@@ -54,10 +67,10 @@ export function SlideoverMenu({
 														fill='none'
 														viewBox='0 0 24 24'
 														stroke='currentColor'
-														stroke-width='2'>
+														strokeWidth='2'>
 														<path
-															stroke-linecap='round'
-															stroke-linejoin='round'
+															strokeLinecap='round'
+															strokeLinejoin='round'
 															d='M6 18L18 6M6 6l12 12'
 														/>
 													</svg>
@@ -66,14 +79,13 @@ export function SlideoverMenu({
 										</div>
 									</div>
 									<div className='relative mt-6 flex-1 px-4 sm:px-6'>
-										{/* Replace with your content */}
-										<div className='absolute inset-0 px-4 sm:px-6'>
-											<div
-												className='h-full border-2 border-dashed border-gray-200'
-												aria-hidden='true'
-											/>
-										</div>
-										{/* /End replace */}
+                    <div className='grid grid-cols-1 gap-y-4'>
+                      {places.map((place: Place) => {
+                        return (
+                          <PlaceCard key={place._id} place={place}/>
+                        )
+                      })}
+                    </div>
 									</div>
 								</div>
 							</div>

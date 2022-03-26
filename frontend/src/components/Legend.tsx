@@ -33,11 +33,11 @@ export function Legend() {
 								<ul className='space-y-1'>
 									<li className='flex items-center space-x-2'>
 										<div className='w-4 h-2 bg-green-500 rounded-sm' />
-										<span>Park</span>
+										<span className='font-medium'>Park</span>
 									</li>
 									<li className='flex items-center space-x-2'>
 										<div className='w-4 h-2 bg-red-500 rounded-sm' />
-										<span>Restaurant</span>
+										<span className='font-medium'>Restaurant</span>
 									</li>
 								</ul>
 							</Disclosure.Panel>

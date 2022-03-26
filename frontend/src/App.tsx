@@ -1,6 +1,9 @@
-import { useState, useEffect, useRef } from 'react';
-import Map from 'react-map-gl';
+import { useEffect, useState } from 'react';
+import Map, {Marker, Popup} from 'react-map-gl';
+import "mapbox-gl/dist/mapbox-gl.css";
 
+import sanityClient from 'lib/sanityClient'
+import {Place} from 'types/Place'
 import { SlideoverMenu } from 'components/SlideoverMenu';
 import { Legend } from 'components/Legend';
 
@@ -11,6 +14,18 @@ function App() {
 		longitude: -0.118092,
 		zoom: 12,
 	});
+  const [places, setPlaces] = useState<Place[]>([])
+  const [selectedPin, setSelectedPin] = useState<Place | null>(null)
+
+  console.log(selectedPin);
+
+  useEffect(() => {
+    sanityClient.fetch(
+      `*[_type == "place"]{ _id, name, description, visited, country, type, country, coordinates}`
+    )
+    .then((data) => setPlaces(data))
+    .catch(console.error)
+  }, [])
 
 	return (
 		<div className='relative overflow-hidden'>
@@ -40,7 +55,27 @@ function App() {
 					mapboxAccessToken={process.env.REACT_APP_MAPBOX_API_TOKEN}
 					initialViewState={viewport}
 					mapStyle='mapbox://styles/ceeyahya/cl0zpa6jq00c914oeg3s8xxyr'
-				/>
+				>
+          {places.map((place) => (
+            <Marker key={place._id} latitude={place.coordinates.lat} longitude={place.coordinates.lng} anchor="bottom">
+              <button onClick={(e) => {
+                  e.preventDefault()
+                  setSelectedPin(place)
+              }}>
+                <img src='/pin.svg' alt='marker' />
+              </button>
+            </Marker>
+          ))}
+
+        {selectedPin ? (
+            <Popup latitude={selectedPin.coordinates.lat} longitude={selectedPin.coordinates.lng} onClose={() => setSelectedPin(null)}>
+              <div>
+                <h2>{selectedPin.name}</h2>
+                <p>{selectedPin.description}</p>
+              </div>
+            </Popup>
+          ) : null}
+        </Map>
 			</div>
 		</div>
 	);
