@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Map, { Marker, Popup } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import { CheckIcon, LocationMarkerIcon, XIcon } from '@heroicons/react/solid';
 
 import sanityClient from 'lib/sanityClient';
 import { Place } from 'types/Place';
@@ -16,8 +17,6 @@ function App() {
 	});
 	const [places, setPlaces] = useState<Place[]>([]);
 	const [selectedPin, setSelectedPin] = useState<Place | null>(null);
-
-	console.log(selectedPin);
 
 	useEffect(() => {
 		sanityClient
@@ -72,7 +71,7 @@ function App() {
 									setSelectedPin(place);
 								}}
 							>
-								<img src='/pin.svg' alt='marker' />
+								<LocationMarkerIcon className='w-5 h-5 text-red-500'/>
 							</button>
 						</Marker>
 					))}
@@ -81,12 +80,28 @@ function App() {
 						<Popup
 							latitude={selectedPin.coordinates.lat}
 							longitude={selectedPin.coordinates.lng}
-							onClose={() => {setSelectedPin(null)}}
-              closeOnClick={false}
+							closeOnClick={false}
+							onClose={() => {
+								setSelectedPin(null);
+							}}
 						>
-							<div>
-								<h2>{selectedPin.name}</h2>
-								<p>{selectedPin.description}</p>
+							<div className='space-y-1'>
+								<div className='flex items-center space-x-1'>
+									{selectedPin.visited ? (
+										<CheckIcon className='w-3 h-3 text-green-600' />
+									) : (
+										<XIcon className='w-3 h-3 text-red-500' />
+									)}
+									<h2 className='font-medium'>
+										{selectedPin.name}{' '}
+										<span className='text-gray-500 font-normal'>
+											({selectedPin.type})
+										</span>
+									</h2>
+								</div>
+								<p className='text-xs text-gray-500'>
+									{selectedPin.description}
+								</p>
 							</div>
 						</Popup>
 					) : null}

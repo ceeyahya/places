@@ -21,3 +21,11 @@
 .mapboxgl {
 	@apply z-0 w-screen h-screen;
 }
+
+.mapboxgl-popup-close-button {
+  @apply px-2 py-0.5 text-lg
+}
+
+mapboxgl-popup, mapboxgl-popup-anchor-bottom {
+  @apply shadow-xl
+}
