@@ -39,6 +39,10 @@ export function Legend() {
 										<div className='w-4 h-2 bg-red-500 rounded-sm' />
 										<span className='font-medium'>Restaurant</span>
 									</li>
+									<li className='flex items-center space-x-2'>
+										<div className='w-4 h-2 bg-indigo-500 rounded-sm' />
+										<span className='font-medium'>Monument</span>
+									</li>
 								</ul>
 							</Disclosure.Panel>
 						</Transition>

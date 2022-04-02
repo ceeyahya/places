@@ -1,11 +1,15 @@
 import { Place } from 'types/Place';
 import { CheckIcon, XIcon } from '@heroicons/react/solid';
+import { placeColor } from 'utils/placeColor';
 
 export const PlaceCard = ({ place }: { place: Place }) => {
-	const { name, description, type, visited, country } = place;
+	const { name, description, type, visited } = place;
 
 	return (
-		<button className='bg-white border-l-4 border-indigo-500 rounded-sm px-4 py-4 shadow hover:shadow-lg transition duration-300'>
+		<button
+			style={{ borderLeft: '4px solid', borderColor: placeColor(type) }}
+			className='bg-white rounded-sm px-4 py-4 shadow hover:shadow-lg transition duration-300'
+		>
 			<div className='space-y-2'>
 				<div className='flex items-center space-x-1'>
 					{visited ? (

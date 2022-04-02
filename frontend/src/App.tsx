@@ -7,6 +7,7 @@ import sanityClient from 'lib/sanityClient';
 import { Place } from 'types/Place';
 import { SlideoverMenu } from 'components/SlideoverMenu';
 import { Legend } from 'components/Legend';
+import { placeColor } from 'utils/placeColor';
 
 function App() {
 	const [open, setOpen] = useState(false);
@@ -71,7 +72,10 @@ function App() {
 									setSelectedPin(place);
 								}}
 							>
-								<LocationMarkerIcon className='w-5 h-5 text-red-500'/>
+								<LocationMarkerIcon
+									style={{ color: placeColor(place.type) }}
+									className='w-5 h-5'
+								/>
 							</button>
 						</Marker>
 					))}
