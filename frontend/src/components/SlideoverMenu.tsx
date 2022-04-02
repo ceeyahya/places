@@ -3,6 +3,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import sanityClient from 'lib/sanityClient';
 import { PlaceCard } from 'components/PlaceCard';
 import { Place } from 'types/Place';
+import { useMap } from 'react-map-gl';
 
 export function SlideoverMenu({
 	open,
@@ -12,11 +13,16 @@ export function SlideoverMenu({
 	setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
 	const [places, setPlaces] = useState<Place[]>([]);
+	const { current: map } = useMap();
+
+	function handleClick(latitude: number, longitude: number) {
+		map?.flyTo({ center: [longitude, latitude] });
+	}
 
 	useEffect(() => {
 		sanityClient
 			.fetch(
-				`*[_type == "place"]{ _id, name, description, visited, country, type, country}`
+				`*[_type == "place"]{ _id, name, description, visited, country, type, country, coordinates}`
 			)
 			.then((data) => setPlaces(data))
 			.catch(console.error);
@@ -87,7 +93,19 @@ export function SlideoverMenu({
 									<div className='relative mt-6 flex-1 px-4 sm:px-6'>
 										<div className='grid grid-cols-1 gap-y-4'>
 											{places.map((place: Place) => {
-												return <PlaceCard key={place._id} place={place} />;
+												return (
+													<button
+														key={place._id}
+														onClick={() =>
+															handleClick(
+																place.coordinates.lat,
+																place.coordinates.lng
+															)
+														}
+													>
+														<PlaceCard place={place} />
+													</button>
+												);
 											})}
 										</div>
 									</div>

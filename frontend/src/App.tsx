@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Map, { Marker, Popup } from 'react-map-gl';
+import Map, { Marker, Popup, useMap } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { CheckIcon, LocationMarkerIcon, XIcon } from '@heroicons/react/solid';
 
@@ -16,6 +16,7 @@ function App() {
 		longitude: -0.118092,
 		zoom: 12,
 	});
+
 	const [places, setPlaces] = useState<Place[]>([]);
 	const [selectedPin, setSelectedPin] = useState<Place | null>(null);
 
@@ -52,13 +53,13 @@ function App() {
 				</svg>
 			</button>
 			<Legend />
-			<SlideoverMenu open={open} setOpen={setOpen} />
 			<div className='mapboxgl'>
 				<Map
 					mapboxAccessToken={process.env.REACT_APP_MAPBOX_API_TOKEN}
 					initialViewState={viewport}
 					mapStyle='mapbox://styles/ceeyahya/cl0zpa6jq00c914oeg3s8xxyr'
 				>
+					<SlideoverMenu open={open} setOpen={setOpen} />
 					{places.map((place) => (
 						<Marker
 							key={place._id}

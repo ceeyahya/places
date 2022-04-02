@@ -1,3 +1,5 @@
+import { EventData } from "mapbox-gl";
+
 export type Place = {
 	_id: string;
 	name: string;

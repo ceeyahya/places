@@ -6,7 +6,7 @@ export const PlaceCard = ({ place }: { place: Place }) => {
 	const { name, description, type, visited } = place;
 
 	return (
-		<button
+		<div
 			style={{ borderLeft: '4px solid', borderColor: placeColor(type) }}
 			className='bg-white rounded-sm px-4 py-4 shadow hover:shadow-lg transition duration-300'
 		>
@@ -24,6 +24,6 @@ export const PlaceCard = ({ place }: { place: Place }) => {
 					<p className='text-sm text-left text-gray-600'>{description}</p>
 				</div>
 			</div>
-		</button>
+		</div>
 	);
 };
