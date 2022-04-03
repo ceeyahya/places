@@ -44,8 +44,8 @@ export function Legend() {
 										<span className='font-medium'>Monument</span>
 									</li>
 									<li className='flex items-center space-x-2'>
-										<div className='w-4 h-2 bg-orange-500 rounded-sm' />
-										<span className='font-medium'>Touristic Attraction</span>
+										<div className='w-4 h-2 bg-yellow-500 rounded-sm' />
+										<span className='font-medium'>Spot</span>
 									</li>
 								</ul>
 							</Disclosure.Panel>

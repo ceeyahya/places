@@ -10,10 +10,10 @@ export function placeColor(placeType: string) {
 			break;
 
 		case 'Restaurant':
-			color = '#ef4444';
+			color = '#eab308';
 			break;
 
-		case 'Touristic Attraction':
+		case 'Spot':
 			color = '#f97316';
 			break;
 

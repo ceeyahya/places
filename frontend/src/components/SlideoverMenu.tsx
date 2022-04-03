@@ -16,10 +16,10 @@ export function SlideoverMenu({
 	const { current: map } = useMap();
 
 	function handleClick(latitude: number, longitude: number) {
-		map?.flyTo({ center: [longitude, latitude], zoom: 13 });
+		map?.flyTo({ center: [longitude, latitude], zoom: 15 });
 	}
-
-	useEffect(() => {
+	
+  useEffect(() => {
 		sanityClient
 			.fetch(
 				`*[_type == "place"]{ _id, name, description, visited, country, type, country, coordinates}`
