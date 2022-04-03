@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Map, { Marker, Popup, useMap } from 'react-map-gl';
+import Map, { Marker, Popup } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { CheckIcon, LocationMarkerIcon, XIcon } from '@heroicons/react/solid';
 

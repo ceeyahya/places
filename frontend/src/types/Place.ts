@@ -1,5 +1,3 @@
-import { EventData } from "mapbox-gl";
-
 export type Place = {
 	_id: string;
 	name: string;
@@ -9,3 +7,4 @@ export type Place = {
 	coordinates: { _type: string; alt: number; lat: number; lng: number };
 	visited: boolean;
 };
+
