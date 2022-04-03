@@ -16,7 +16,7 @@ export function SlideoverMenu({
 	const { current: map } = useMap();
 
 	function handleClick(latitude: number, longitude: number) {
-		map?.flyTo({ center: [longitude, latitude] });
+		map?.flyTo({ center: [longitude, latitude], zoom: 13 });
 	}
 
 	useEffect(() => {

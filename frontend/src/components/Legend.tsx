@@ -2,7 +2,7 @@ import { Disclosure, Transition } from '@headlessui/react';
 
 export function Legend() {
 	return (
-		<div className='absolute z-10 top-4 left-4 w-48 bg-white border border-gray-200 shadow-lg rounded-md px-4'>
+		<div className='absolute z-10 top-4 left-4 w-56 bg-white border border-gray-200 shadow-lg rounded-md px-4'>
 			<Disclosure>
 				{({ open }) => (
 					<>
@@ -42,6 +42,10 @@ export function Legend() {
 									<li className='flex items-center space-x-2'>
 										<div className='w-4 h-2 bg-indigo-500 rounded-sm' />
 										<span className='font-medium'>Monument</span>
+									</li>
+									<li className='flex items-center space-x-2'>
+										<div className='w-4 h-2 bg-orange-500 rounded-sm' />
+										<span className='font-medium'>Touristic Attraction</span>
 									</li>
 								</ul>
 							</Disclosure.Panel>
